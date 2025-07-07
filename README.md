@@ -1,5 +1,9 @@
 # UST-Net
 ## UST-Net: A U-Shaped Transformer Network Using Shifted Windows for Hyperspectral Unmixing
+If you use the code, please cite the paper:
+
+Z. Yang, M. Xu, S. Liu, H. Sheng, and J. Wan, “UST-Net: A U-Shaped Transformer Network Using Shifted Windows for Hyperspectral Unmixing,” IEEE Trans. Geosci. Remote Sens., vol. 61, pp. 1–15, 2023, doi: 10.1109/TGRS.2023.3321839
+
 The code in this toolbox implements the "UST-Net: A U-Shaped Transformer Network Using Shifted Windows for Hyperspectral Unmixing". 
 
 ## System-specific notes
