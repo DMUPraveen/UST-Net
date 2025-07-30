@@ -15,7 +15,11 @@ class HSI:
     '''
     def __init__(self,data, rows, cols, gt,sgt,patch_size):
         if data.shape[0] < data.shape[1]:
-            data = data.transpose()
+            # data = data.transpose()
+            data = data.reshape(-1,rows,cols)
+            data = data.transpose(1,2,0)
+            data = data.reshape(-1,data.shape[2])
+            
 
         self.bands = np.min(data.shape)
         self.rows=rows
@@ -71,7 +75,6 @@ def load_HSI(path,patch_size=32):
     #numpy_array = numpy_array / np.max(numpy_array.flatten())
     n_rows = data['lines'].item()
     n_cols = data['cols'].item()
-    
     if 'GT' in data.keys():
         gt = np.asarray(data['GT'], dtype=np.float32)
     else:
@@ -80,6 +83,19 @@ def load_HSI(path,patch_size=32):
         sgt = np.asarray(data['S_GT'], dtype=np.float32)
     else:
         sgt = None
+    return HSI(numpy_array, n_rows, n_cols, gt,sgt,patch_size)
+
+
+
+def load_myhsi(path,patch_size=32):
+    data = sio.loadmat(path)
+    
+    numpy_array = np.asarray(data['Y'], dtype=np.float32)
+
+    n_rows,n_cols = map(int,list(data['HW'].ravel()))
+
+    gt = data['M'].T.astype(np.float32)
+    sgt = data['A'].reshape(-1,n_rows,n_cols).transpose(1,2,0).astype(np.float32)
     return HSI(numpy_array, n_rows, n_cols, gt,sgt,patch_size)
 
 
